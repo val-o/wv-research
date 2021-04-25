@@ -1,6 +1,8 @@
 import { Redirect, Route } from "react-router-dom";
 import {
   IonApp,
+  IonBadge,
+  IonButton,
   IonContent,
   IonHeader,
   IonIcon,
@@ -9,6 +11,7 @@ import {
   IonList,
   IonPage,
   IonRouterOutlet,
+  IonSearchbar,
   IonTabBar,
   IonTabButton,
   IonTabs,
@@ -20,7 +23,9 @@ import { ellipse, square, triangle } from "ionicons/icons";
 import Tab1 from "./pages/Tab1";
 import Tab2 from "./pages/Tab2";
 import Tab3 from "./pages/Tab3";
-import { AuthScreen } from "./modules/auth";
+import { ProfileScreen, RegistrationFlow } from "./modules/auth";
+import { HomeScreen } from "./modules/home";
+import { calendar, personCircle, map, informationCircle } from "ionicons/icons";
 
 /* Core CSS required for Ionic components to work properly */
 import "@ionic/react/css/core.css";
@@ -42,61 +47,51 @@ import "@ionic/react/css/display.css";
 import "./theme/variables.css";
 import React from "react";
 
-const App: React.FC = () => (
-  <IonApp>
-    <IonReactRouter>
-      <IonRouterOutlet>
-        <Route path="/auth">
-          <AuthScreen />
-        </Route>
-        <Route exact path="/tab2">
-          <UsersListPage />
-        </Route>
-        <Route path="/tab3">
-          <Tab3 />
-        </Route>
-        <Route exact path="/">
-          <Redirect to="/tab1" />
-        </Route>
-      </IonRouterOutlet>
-      <IonTabBar slot="bottom">
-        <IonTabButton tab="tab1" href="/tab1">
-          <IonIcon icon={triangle} />
-          <IonLabel>Tab 1</IonLabel>
-        </IonTabButton>
-        <IonTabButton tab="tab2" href="/tab2">
-          <IonIcon icon={ellipse} />
-          <IonLabel>Tab 2</IonLabel>
-        </IonTabButton>
-        <IonTabButton tab="tab3" href="/tab3">
-          <IonIcon icon={square} />
-          <IonLabel>Tab 3</IonLabel>
-        </IonTabButton>
-      </IonTabBar>
-    </IonReactRouter>
-  </IonApp>
-);
-
-export default App;
-
-const UsersListPage: React.FC = () => {
+const HomePage: React.FC = () => {
   return (
     <IonPage>
       <IonHeader>
         <IonToolbar>
-          <IonTitle>Users</IonTitle>
+          <IonTitle size="large">Home</IonTitle>
         </IonToolbar>
       </IonHeader>
       <IonContent>
         <IonList>
-          <IonItem routerLink="/dashboard/users/1">
-            <IonLabel>User 1</IonLabel>
+          <IonItem routerLink="/auth">
+            <IonLabel>Auth</IonLabel>
           </IonItem>
-          <IonItem routerLink="/dashboard/users/2">
-            <IonLabel>User 2</IonLabel>
+          <IonItem routerLink="/profile" routerDirection="forward">
+            <IonLabel>Profile</IonLabel>
+          </IonItem>
+          <IonItem routerLink="/home">
+            <IonLabel>Home</IonLabel>
+          </IonItem>
+          <IonItem routerLink="/home">
+            <IonLabel>Home</IonLabel>
           </IonItem>
         </IonList>
       </IonContent>
     </IonPage>
   );
 };
+
+const App: React.FC = () => (
+  <IonApp>
+    <IonReactRouter>
+      <IonRouterOutlet>
+        <Route path="/auth">
+          <RegistrationFlow />
+        </Route>
+        <Route exact path="/profile">
+          <ProfileScreen />
+        </Route>
+        <Route exact path="/home">
+          <HomePage />
+        </Route>
+        {/* <Route exact path="/home" component={HomeScreen}></Route> */}
+      </IonRouterOutlet>
+    </IonReactRouter>
+  </IonApp>
+);
+
+export default App;
